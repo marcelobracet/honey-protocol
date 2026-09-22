@@ -8,10 +8,24 @@ export interface HabitState {
   screenOff: boolean;
 }
 
-export interface HoneyState {
-  date: string;
-  habits: HabitState;
-  streak: number;
-  lastRitualDate: string | null;
-  hasOnboarded: boolean;
+/** One calendar day of the ritual, keyed by the user's local date (YYYY-MM-DD). */
+export interface RitualDay extends HabitState {
+  day: string;
+}
+
+export interface Profile {
+  displayName: string | null;
+  locale: string;
+  timezone: string | null;
+  onboardedAt: string | null;
+  reminderOptIn: boolean;
+}
+
+export type EntitlementStatus = "active" | "revoked";
+
+export interface Entitlement {
+  email: string;
+  status: EntitlementStatus;
+  source: string;
+  transaction: string | null;
 }
