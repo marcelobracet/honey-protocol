@@ -59,7 +59,7 @@ Depois use `/pt/login` com esse e-mail e copie o link do terminal.
 3. Environment Variables: tudo de `.env.local.example`. Obrigatórios: `NEXT_PUBLIC_SITE_URL`, `DATABASE_URL`, `SESSION_SECRET`, `HOTMART_HOTTOK`, `CHECKOUT_URL`, `RESEND_API_KEY`, `EMAIL_FROM`, `CRON_SECRET`, `NEXT_PUBLIC_SUPPORT_EMAIL`, dados da empresa.
 4. Hotmart → Ferramentas → Webhook (versão 2.0): URL `https://seu-dominio/api/webhooks/hotmart`, eventos de compra (aprovada, completa, reembolsada, chargeback, cancelada, protesto, expirada). Copie o **hottok** para `HOTMART_HOTTOK`.
 5. Resend: verifique o domínio do `EMAIL_FROM` (SPF/DKIM) para não cair em spam.
-6. O cron de lembretes já está em `vercel.json` (a cada hora; envia entre 7h e 9h no fuso do usuário).
+6. O cron está em `vercel.json`. Contas **Hobby** só permitem um disparo por dia, então ele roda às 10:00 UTC e a janela de envio local é ampla (`REMINDER_LOCAL_HOURS=5-21`), para alcançar vários fusos sem acordar ninguém. No plano **Pro**, troque a expressão para `0 * * * *` e defina `REMINDER_LOCAL_HOURS=7-8` para entregar na hora do café da manhã em cada fuso.
 
 ### Um checkout por país
 
