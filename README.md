@@ -47,7 +47,7 @@ Em ordem: metadados da sessão do Stripe (`lang`, `locale`, `language`, `idioma`
 ```bash
 npm install
 cp .env.local.example .env.local   # preencha DATABASE_URL e SESSION_SECRET no mínimo
-npm run db:migrate
+npm run db:migrate                 # opcional: o build já faz isso
 npm run dev
 ```
 
@@ -62,7 +62,7 @@ Depois use `/pt/login` com esse e-mail e copie o link do terminal.
 ## Deploy (Vercel)
 
 1. Importe o repositório na Vercel.
-2. **Storage → Neon → Connect** (cria `DATABASE_URL`). Rode `npm run db:migrate` localmente apontando para essa URL (ou use a URL no seu CI).
+2. **Storage → Neon → Connect** (cria `DATABASE_URL`). As migrações rodam sozinhas: `npm run build` executa `db:migrate` antes do `next build`, então o primeiro deploy depois de conectar o banco já cria as tabelas. Sem `DATABASE_URL` o passo é pulado e o build passa normalmente. Um *advisory lock* impede que dois deploys simultâneos apliquem a mesma migração.
 3. Environment Variables: tudo de `.env.local.example`. Obrigatórios: `NEXT_PUBLIC_SITE_URL`, `DATABASE_URL`, `SESSION_SECRET`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `CHECKOUT_URL`, `RESEND_API_KEY`, `EMAIL_FROM`, `CRON_SECRET`, `NEXT_PUBLIC_SUPPORT_EMAIL`, dados da empresa.
 4. **Stripe** → Dashboard → Webhooks → criar destino apontando para `https://seu-dominio/api/webhooks/stripe`, assinando `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `charge.refunded`, `charge.dispute.created` e `charge.dispute.closed`. Copie o segredo `whsec_…` para `STRIPE_WEBHOOK_SECRET`.
 5. **KashPay** → conecte a mesma conta Stripe, cole o link do checkout em `CHECKOUT_URL` e defina a página de obrigado como `https://seu-dominio/pt/thank-you` (uma por idioma). Confirme que o KashPay repassa os parâmetros da query para os metadados da sessão do Stripe; se não repassar, o idioma cai para o país da cobrança.
