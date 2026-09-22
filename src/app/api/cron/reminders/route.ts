@@ -85,7 +85,7 @@ export async function GET(request: NextRequest) {
     dictCache.set(locale, dict);
 
     try {
-      await sendEmail({ to: user.email, ...renderReminderEmail(dict, locale) });
+      await sendEmail({ to: user.email, ...renderReminderEmail(dict, locale), senderName: dict.common.brand });
       await sql()`update users set last_reminder_day = ${local.day} where id = ${user.id}`;
       sent += 1;
     } catch (err) {

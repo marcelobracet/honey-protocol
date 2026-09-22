@@ -47,7 +47,7 @@ export async function sendDueSequenceEmails(): Promise<{ checked: number; sent: 
         on conflict do nothing returning id
       `;
       if (claimed.length === 0) continue;
-      await sendEmail({ to: row.email, ...renderSequenceEmail(dict, locale, step) });
+      await sendEmail({ to: row.email, ...renderSequenceEmail(dict, locale, step), senderName: dict.common.brand });
       // Mark earlier skipped steps as done so they never go out late.
       for (const s of dict.email.sequence) {
         if (s.day < step.day) {

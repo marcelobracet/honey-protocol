@@ -28,6 +28,7 @@ export const serverEnv = {
   stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET ?? "",
   resendApiKey: process.env.RESEND_API_KEY ?? "",
   emailFrom: process.env.EMAIL_FROM ?? "",
+  emailFromAddress: process.env.EMAIL_FROM_ADDRESS ?? "",
   cronSecret: process.env.CRON_SECRET ?? "",
   metaCapiToken: process.env.META_CAPI_TOKEN ?? "",
 };

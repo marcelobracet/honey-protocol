@@ -96,6 +96,6 @@ export async function sendMagicLink(input: { email: string; locale: Locale; kind
   const link = buildConfirmUrl(token, input.locale);
   const dict = await getDictionary(input.locale);
   const rendered = input.kind === "welcome" ? renderWelcomeEmail(dict, link) : renderLoginEmail(dict, link);
-  await sendEmail({ to: email, ...rendered });
+  await sendEmail({ to: email, ...rendered, senderName: dict.common.brand });
   await sql()`update entitlements set last_link_sent_at = now() where email = ${email}`;
 }
