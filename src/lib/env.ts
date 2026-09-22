@@ -10,6 +10,9 @@ export const publicEnv = {
   companyId: process.env.NEXT_PUBLIC_COMPANY_ID ?? "",
   companyAddress: process.env.NEXT_PUBLIC_COMPANY_ADDRESS ?? "",
   guaranteeDays: Number(process.env.NEXT_PUBLIC_GUARANTEE_DAYS ?? "7"),
+  // Query parameter the checkout expects the locale under. Read on the client
+  // too, so it has to be NEXT_PUBLIC_. Use "xcod" when selling through Hotmart.
+  checkoutLocaleParam: process.env.NEXT_PUBLIC_CHECKOUT_LOCALE_PARAM || "lang",
 };
 
 /** Server-only secrets. Never import this from a client component. */
@@ -21,6 +24,8 @@ export const serverEnv = {
     .split(",")
     .map((s) => s.trim())
     .filter(Boolean),
+  stripeSecretKey: process.env.STRIPE_SECRET_KEY ?? "",
+  stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET ?? "",
   resendApiKey: process.env.RESEND_API_KEY ?? "",
   emailFrom: process.env.EMAIL_FROM ?? "",
   cronSecret: process.env.CRON_SECRET ?? "",

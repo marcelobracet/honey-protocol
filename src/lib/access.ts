@@ -60,6 +60,21 @@ export async function revokeAccess(email: string, reason: string): Promise<void>
   `;
 }
 
+/**
+ * Revokes by payment id. Stripe refund and dispute events don't reliably carry
+ * the buyer's e-mail, but they do carry the PaymentIntent we stored on purchase.
+ * Returns the affected e-mail, or null when no row matched.
+ */
+export async function revokeAccessByTransaction(transaction: string, reason: string): Promise<string | null> {
+  const rows = await sql()<{ email: string }[]>`
+    update entitlements
+       set status = 'revoked', revoked_at = now(), revoke_reason = ${reason}
+     where transaction = ${transaction}
+    returning email
+  `;
+  return rows[0]?.email ?? null;
+}
+
 export async function getEntitlementByEmail(email: string): Promise<EntitlementRow | null> {
   const rows = await sql()<EntitlementRow[]>`
     select id, email, status, locale, buyer_name, last_link_sent_at
