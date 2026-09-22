@@ -35,11 +35,36 @@ export async function verifyStripeEvent(rawBody: string, signature: string | nul
 /** Metadata keys a checkout front-end (KashPay, our own links) may use for the locale. */
 const LOCALE_KEYS = ["lang", "locale", "language", "idioma", "xcod"];
 
+/** Best supported language from an Accept-Language header, or null. */
+function localeFromAcceptLanguage(header: string | null | undefined): Locale | null {
+  if (!header) return null;
+  const ranked = header
+    .split(",")
+    .map((part) => {
+      const [tag, q] = part.trim().split(";q=");
+      return { tag: tag.trim().toLowerCase(), q: q ? Number(q) : 1 };
+    })
+    .filter((x) => x.tag && !Number.isNaN(x.q))
+    .sort((a, b) => b.q - a.q);
+  for (const { tag } of ranked) {
+    const base = tag.split("-")[0];
+    if (isLocale(base)) return base;
+  }
+  return null;
+}
+
 /**
  * Works out which language to write to and e-mail the buyer in.
- * Priority: explicit metadata → Stripe Checkout locale → billing country.
+ *
+ * Priority: what the checkout explicitly told us → the language the buyer
+ * paid in → the language their browser asks for → the billing country.
+ *
+ * The browser beats the country deliberately: an Italian living in London
+ * pays with a British card, and the card says nothing about which language
+ * they read. `acceptLanguage` is only available where a real browser is
+ * present (the return page), not in a webhook.
  */
-export function localeFromSession(session: Stripe.Checkout.Session): Locale {
+export function localeFromSession(session: Stripe.Checkout.Session, acceptLanguage?: string | null): Locale {
   const metadata = session.metadata ?? {};
   for (const key of LOCALE_KEYS) {
     const raw = metadata[key];
@@ -50,7 +75,7 @@ export function localeFromSession(session: Stripe.Checkout.Session): Locale {
   }
   const checkoutLocale = session.locale && session.locale !== "auto" ? session.locale.split("-")[0] : null;
   if (checkoutLocale && isLocale(checkoutLocale)) return checkoutLocale;
-  return localeFromCountry(session.customer_details?.address?.country) ?? "en";
+  return localeFromAcceptLanguage(acceptLanguage) ?? localeFromCountry(session.customer_details?.address?.country) ?? "en";
 }
 
 export function emailFromSession(session: Stripe.Checkout.Session): string | null {

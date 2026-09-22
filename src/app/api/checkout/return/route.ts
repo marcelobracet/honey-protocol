@@ -45,7 +45,8 @@ export async function GET(request: NextRequest) {
 
   try {
     const session = await stripe().checkout.sessions.retrieve(sessionId);
-    locale = localeFromSession(session);
+    // The buyer's own browser is here, so it can speak for them.
+    locale = localeFromSession(session, request.headers.get("accept-language"));
 
     // Delayed methods (boleto, bank transfer) land here before the money does.
     if (session.payment_status === "unpaid") {
