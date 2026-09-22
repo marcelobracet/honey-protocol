@@ -12,7 +12,18 @@ import { isDatabaseConfigured, serverEnv } from "@/lib/env";
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
-const REMINDER_HOURS = [7, 8]; // local time window in which the reminder may go out
+/**
+ * Local-time window in which a reminder may go out, as "startHour-endHour"
+ * (inclusive). The default is wide because Hobby plans only allow one cron
+ * run per day, so a single run has to reach users across many timezones
+ * while still avoiding the middle of the night. On an hourly cron (Pro),
+ * set REMINDER_LOCAL_HOURS=7-8 to deliver at breakfast time everywhere.
+ */
+function reminderWindow(): [number, number] {
+  const [start, end] = (process.env.REMINDER_LOCAL_HOURS ?? "5-21").split("-").map(Number);
+  if (!Number.isInteger(start) || !Number.isInteger(end) || start < 0 || end > 23 || start > end) return [5, 21];
+  return [start, end];
+}
 
 function authorized(request: NextRequest): boolean {
   const header = request.headers.get("authorization") ?? "";
@@ -49,6 +60,7 @@ export async function GET(request: NextRequest) {
   if (!isDatabaseConfigured()) return NextResponse.json({ error: "no database" }, { status: 500 });
 
   const now = new Date();
+  const [windowStart, windowEnd] = reminderWindow();
   const users = await sql()<{ id: string; email: string; locale: string; timezone: string; last_reminder_day: string | null }[]>`
     select u.id, u.email, u.locale, u.timezone, to_char(u.last_reminder_day, 'YYYY-MM-DD') as last_reminder_day
       from users u
@@ -61,7 +73,7 @@ export async function GET(request: NextRequest) {
 
   for (const user of users) {
     const local = localParts(user.timezone, now);
-    if (!local || !REMINDER_HOURS.includes(local.hour) || user.last_reminder_day === local.day) continue;
+    if (!local || local.hour < windowStart || local.hour > windowEnd || user.last_reminder_day === local.day) continue;
 
     const done = await sql()<{ honey: boolean }[]>`
       select honey from ritual_days where user_id = ${user.id} and day = ${local.day} limit 1

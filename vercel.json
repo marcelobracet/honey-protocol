@@ -2,8 +2,9 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "crons": [
     {
+      "_comment": "Hobby plans allow one run per day. 10:00 UTC lands in the morning across the Americas and Europe. On Pro, change this to \"0 * * * *\" and set REMINDER_LOCAL_HOURS=7-8 for per-timezone precision.",
       "path": "/api/cron/reminders",
-      "schedule": "0 * * * *"
+      "schedule": "0 10 * * *"
     }
   ]
 }
