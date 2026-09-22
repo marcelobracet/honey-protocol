@@ -33,6 +33,7 @@ export default async function VslPage({ params }: { params: Promise<{ locale: st
     companyName: publicEnv.companyName,
     companyId: publicEnv.companyId,
     supportEmail: publicEnv.supportEmail,
+    statementDescriptor: publicEnv.statementDescriptor,
   };
 
   return (

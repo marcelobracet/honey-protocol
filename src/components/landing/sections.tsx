@@ -20,6 +20,7 @@ export interface LandingContext {
   companyName: string;
   companyId: string;
   supportEmail: string;
+  statementDescriptor: string;
 }
 
 /* ---------- layout primitives ---------- */
@@ -347,6 +348,11 @@ export function Pricing({ ctx }: { ctx: LandingContext }) {
             ))}
           </ul>
           <div className="mt-5 text-[12px] text-honey-text-faint">🔒 {t.secure}</div>
+          {ctx.statementDescriptor ? (
+            <div className="mt-1.5 text-[12px] text-honey-text-faint">
+              {fill(t.statement, { descriptor: ctx.statementDescriptor })}
+            </div>
+          ) : null}
         </div>
 
         <div className="mt-6 rounded-[22px] border border-dashed border-honey-gold/40 p-5 text-center sm:p-6">

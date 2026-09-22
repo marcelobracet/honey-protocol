@@ -140,6 +140,7 @@ const de: Dictionary = {
       priceFallback: "Preis im Checkout ansehen",
       cta: "MEINEN ZUGANG FREISCHALTEN",
       secure: "100 % sichere und private Zahlung, abgewickelt über Hotmart.",
+    statement: "Auf deiner Kartenabrechnung erscheint der Betrag als {descriptor}.",
       bullets: ["Sofortiger Zugang per E-Mail", "Einmalzahlung, kein Abo", "{days} Tage Geld-zurück-Garantie"],
     },
     guarantee: {

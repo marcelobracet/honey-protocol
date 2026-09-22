@@ -39,6 +39,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
     companyName: publicEnv.companyName,
     companyId: publicEnv.companyId,
     supportEmail: publicEnv.supportEmail,
+    statementDescriptor: publicEnv.statementDescriptor,
   };
 
   return (

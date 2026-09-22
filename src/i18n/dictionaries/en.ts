@@ -140,6 +140,7 @@ const en: Dictionary = {
       priceFallback: "See price at checkout",
       cta: "UNLOCK MY ACCESS",
       secure: "100% secure and private payment, processed by Hotmart.",
+    statement: "On your card statement this shows up as {descriptor}.",
       bullets: ["Instant access by email", "One-time payment, no subscription", "{days}-day guarantee"],
     },
     guarantee: {

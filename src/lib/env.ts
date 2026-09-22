@@ -13,6 +13,9 @@ export const publicEnv = {
   // Query parameter the checkout expects the locale under. Read on the client
   // too, so it has to be NEXT_PUBLIC_. Use "xcod" when selling through Hotmart.
   checkoutLocaleParam: process.env.NEXT_PUBLIC_CHECKOUT_LOCALE_PARAM || "lang",
+  // What the buyer will see on their card statement. Showing it before they
+  // pay is the cheapest defence against "I don't recognise this charge".
+  statementDescriptor: process.env.NEXT_PUBLIC_STATEMENT_DESCRIPTOR ?? "",
 };
 
 /** Server-only secrets. Never import this from a client component. */

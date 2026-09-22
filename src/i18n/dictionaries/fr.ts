@@ -140,6 +140,7 @@ const fr: Dictionary = {
       priceFallback: "Voir le prix au paiement",
       cta: "DÉBLOQUER MON ACCÈS",
       secure: "Paiement 100 % sécurisé et confidentiel, traité par Hotmart.",
+    statement: "Sur votre relevé de carte, le paiement apparaîtra sous le nom {descriptor}.",
       bullets: ["Accès immédiat par e-mail", "Paiement unique, sans abonnement", "Garantie {days} jours"],
     },
     guarantee: {

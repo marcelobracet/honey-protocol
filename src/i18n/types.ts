@@ -58,6 +58,8 @@ export interface Dictionary {
       priceFallback: string;
       cta: string;
       secure: string;
+      /** Warns what shows on the card statement, so buyers don't dispute it. */
+      statement: string;
       bullets: string[];
     };
     guarantee: { title: string; body: string; cta: string };
