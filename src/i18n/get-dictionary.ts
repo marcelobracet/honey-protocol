@@ -16,7 +16,4 @@ export async function getDictionary(locale: Locale): Promise<Dictionary> {
   return dictionaries[locale]();
 }
 
-/** Replaces `{name}` placeholders in a translated string. */
-export function fill(template: string, values: Record<string, string | number>): string {
-  return template.replace(/\{(\w+)\}/g, (_, key: string) => (key in values ? String(values[key]) : `{${key}}`));
-}
+export { fill } from "./fill";

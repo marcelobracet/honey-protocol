@@ -78,6 +78,39 @@ export interface Dictionary {
       alreadyBought: string;
     };
   };
+  quiz: {
+    meta: { title: string; description: string };
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    start: string;
+    progress: string;
+    back: string;
+    questions: { id: string; title: string; options: { value: string; label: string }[] }[];
+    capture: {
+      eyebrow: string;
+      title: string;
+      subtitle: string;
+      emailLabel: string;
+      emailPlaceholder: string;
+      consent: string;
+      submit: string;
+      submitting: string;
+      skip: string;
+      invalidEmail: string;
+      consentRequired: string;
+      genericError: string;
+    };
+    result: {
+      eyebrow: string;
+      title: string;
+      cta: string;
+      ctaHint: string;
+      /** Keyed by segment: coffee, time, relapse, focus. */
+      segments: Record<string, { title: string; body: string }>;
+      closing: string;
+    };
+  };
   consent: {
     title: string;
     body: string;

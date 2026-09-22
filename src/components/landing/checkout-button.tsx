@@ -3,6 +3,7 @@
 import { useMemo, useSyncExternalStore } from "react";
 import { motion } from "framer-motion";
 import { buildCheckoutUrl, UTM_STORAGE_KEY, type UtmParams } from "@/lib/checkout";
+import { QUIZ_SEGMENT_KEY } from "@/lib/quiz";
 import { trackEvent } from "@/lib/analytics";
 import type { Locale } from "@/i18n/config";
 
@@ -12,9 +13,10 @@ function subscribe() {
 
 function readRawUtm(): string {
   try {
-    return sessionStorage.getItem(UTM_STORAGE_KEY) ?? "";
+    // One string so useSyncExternalStore sees a stable value between renders.
+    return `${sessionStorage.getItem(UTM_STORAGE_KEY) ?? ""}|${sessionStorage.getItem(QUIZ_SEGMENT_KEY) ?? ""}`;
   } catch {
-    return "";
+    return "|";
   }
 }
 
@@ -32,16 +34,17 @@ export function CheckoutButton({
   className?: string;
 }) {
   // Server renders the plain link; the client swaps in the UTM-tagged one after hydration.
-  const rawUtm = useSyncExternalStore(subscribe, readRawUtm, () => "");
+  const stored = useSyncExternalStore(subscribe, readRawUtm, () => "|");
   const href = useMemo(() => {
+    const [rawUtm, segment] = stored.split("|");
     let utm: UtmParams = {};
     try {
       utm = rawUtm ? (JSON.parse(rawUtm) as UtmParams) : {};
     } catch {
       utm = {};
     }
-    return buildCheckoutUrl(locale, utm, baseUrl);
-  }, [rawUtm, locale, baseUrl]);
+    return buildCheckoutUrl(locale, utm, baseUrl, segment || null);
+  }, [stored, locale, baseUrl]);
 
   const padding = size === "lg" ? "px-6 py-4.5 text-[15px] sm:text-base" : "px-5 py-3.5 text-[14px]";
 

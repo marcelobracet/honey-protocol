@@ -17,7 +17,7 @@ export const UTM_STORAGE_KEY = "hp_utm";
  * Hotmart names that parameter `xcod` and shows campaign data from `src` and
  * `sck` in its sales report, so those are added in that mode.
  */
-export function buildCheckoutUrl(locale: Locale, utm: UtmParams = {}, base?: string): string {
+export function buildCheckoutUrl(locale: Locale, utm: UtmParams = {}, base?: string, segment?: string | null): string {
   const raw = base ?? getCheckoutBaseUrl(locale);
   if (!raw) return "#";
   let url: URL;
@@ -39,5 +39,6 @@ export function buildCheckoutUrl(locale: Locale, utm: UtmParams = {}, base?: str
     const value = utm[key];
     if (value) url.searchParams.set(key, value);
   }
+  if (segment) url.searchParams.set("seg", segment);
   return url.toString();
 }

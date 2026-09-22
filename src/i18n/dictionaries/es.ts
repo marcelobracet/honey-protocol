@@ -182,6 +182,109 @@ const es: Dictionary = {
       alreadyBought: "¿Ya compraste?",
     },
   },
+  quiz: {
+    meta: {
+      title: "Descubre por qué tu mañana te tumba a las 10",
+      description: "5 preguntas rápidas para identificar el patrón que te está quitando la energía temprano.",
+    },
+    eyebrow: "5 preguntas · menos de 1 minuto",
+    title: "¿Por qué te despiertas cansado aunque duermas bien?",
+    subtitle: "Responde 5 preguntas y te muestro cuál de los cuatro patrones está detrás de tu caída de energía. Sin registro para empezar.",
+    start: "Empezar",
+    progress: "Pregunta {n} de {total}",
+    back: "Volver",
+    questions: [
+      {
+        id: "acordar",
+        title: "¿Cómo sueles despertarte?",
+        options: [
+          { value: "cansado", label: "Cansado, aunque haya dormido lo suficiente" },
+          { value: "bem-cai", label: "Bien, pero me caigo a media mañana" },
+          { value: "depende", label: "Depende mucho del día" },
+          { value: "disposto", label: "Casi siempre con energía" },
+        ],
+      },
+      {
+        id: "cafe",
+        title: "¿Cuántos cafés tomas antes del almuerzo?",
+        options: [
+          { value: "0", label: "Ninguno" },
+          { value: "1", label: "Uno" },
+          { value: "2-3", label: "Dos o tres" },
+          { value: "4+", label: "Más de tres" },
+        ],
+      },
+      {
+        id: "atrapalha",
+        title: "¿Qué es lo que más te arruina la mañana?",
+        options: [
+          { value: "foco", label: "La cabeza tarda en “encender”" },
+          { value: "energia", label: "Falta de energía en el cuerpo" },
+          { value: "tempo", label: "No me queda tiempo para nada" },
+          { value: "doce", label: "Ganas de comer algo dulce" },
+        ],
+      },
+      {
+        id: "tempo",
+        title: "¿Cuánto tiempo tienes de verdad por la mañana?",
+        options: [
+          { value: "menos5", label: "Menos de 5 minutos" },
+          { value: "5-10", label: "Entre 5 y 10 minutos" },
+          { value: "10-20", label: "Entre 10 y 20 minutos" },
+          { value: "mais20", label: "Más de 20 minutos" },
+        ],
+      },
+      {
+        id: "tentativas",
+        title: "¿Ya intentaste cambiar tu rutina de la mañana?",
+        options: [
+          { value: "nunca", label: "Nunca lo intenté en serio" },
+          { value: "dias", label: "Lo intenté y lo dejé a los pocos días" },
+          { value: "semanas", label: "Lo intenté y lo dejé después de algunas semanas" },
+          { value: "mantenho", label: "Tengo una rutina y la mantengo" },
+        ],
+      },
+    ],
+    capture: {
+      eyebrow: "Casi listo",
+      title: "¿A dónde te envío tu resultado?",
+      subtitle: "Deja tu correo si quieres recibir el resultado y consejos para tu mañana. Es opcional, y puedes ver tu resultado ahora mismo sin dejar nada.",
+      emailLabel: "Tu mejor correo",
+      emailPlaceholder: "tu@ejemplo.com",
+      consent: "Quiero recibir mi resultado y consejos por correo. Puedo cancelar cuando quiera.",
+      submit: "Ver mi resultado",
+      submitting: "Enviando…",
+      skip: "Ver mi resultado sin recibir correos",
+      invalidEmail: "Escribe un correo válido.",
+      consentRequired: "Marca la casilla de arriba para que pueda enviarte correos.",
+      genericError: "No pudimos guardarlo ahora. Mira tu resultado de todos modos.",
+    },
+    result: {
+      eyebrow: "Tu resultado",
+      title: "El patrón detrás de tu mañana",
+      cta: "VER QUÉ HACER AL RESPECTO",
+      ctaHint: "Video de pocos minutos, con el paso a paso",
+      segments: {
+        coffee: {
+          title: "Estás en la montaña rusa del café",
+          body: "Tu cuerpo aprendió a pedir un estímulo para funcionar, y cada dosis te pasa la cuenta unas horas después. No es falta de café, es un pico sin nada que lo sostenga. La salida no es cortar el café de golpe: es darle a tu cuerpo una fuente de energía que libere poco a poco, apenas te despiertas, antes del primer pico.",
+        },
+        time: {
+          title: "Tu problema es el tiempo, no la disciplina",
+          body: "No necesitas una rutina de una hora, necesitas una que quepa en la mañana que realmente tienes. Todo lo que pida más tiempo del que tienes se abandona en la primera semana, y eso no dice nada sobre tu fuerza de voluntad. Lo que funciona en tu caso es un solo gesto, de pocos minutos, siempre igual.",
+        },
+        relapse: {
+          title: "Ya sabes qué hacer; falta lo que te haga seguir",
+          body: "Lo intentaste antes y lo dejaste. Es el patrón más común de todos, y casi nunca es falta de información. Lo que falla es no tener nada que haga visible la secuencia: sin un contador, un día perdido se vuelve dos, y dos se vuelven abandono. Lo que cambia el juego es ver tu propia constancia acumularse.",
+        },
+        focus: {
+          title: "Tu queja es de la mente, no del cuerpo",
+          body: "Esa sensación de cabeza pesada y de tardar en arrancar suele venir de lo que entra primero en tu cuerpo, no de cuánto dormiste. La cafeína sola acelera sin ordenar nada. Lo que ayuda es una combinación que traiga atención sin agitación, tomada antes de que el día empiece a exigirte.",
+        },
+      },
+      closing: "Esto es un hábito de apoyo a tu rutina y no sustituye la orientación profesional de salud.",
+    },
+  },
   consent: {
     title: "Cookies y privacidad",
     body: "Usamos cookies esenciales para que el sitio funcione y, con tu permiso, cookies de medición de anuncios (Meta Pixel y Google Analytics) para entender de dónde vienen nuestros visitantes. Puedes cambiar de opinión en cualquier momento.",
@@ -343,7 +446,8 @@ const es: Dictionary = {
         { title: "7. Cookies", paragraphs: ["Cookies esenciales: sesión de inicio, idioma y registro de tu elección sobre cookies. Cookies de medición (opcionales): Meta Pixel y Google Analytics, activado solo después de tu aceptación en el banner. Puedes cambiar tu elección borrando las cookies del navegador."] },
         { title: "8. Seguridad", paragraphs: ["Usamos acceso mediante enlace único enviado a tu correo (sin contraseñas almacenadas), cifrado en tránsito, control de acceso por fila en la base de datos y registro de eventos. Ningún sistema es 100% seguro; en caso de un incidente relevante, te informaremos a ti y a las autoridades conforme a la ley."] },
         { title: "9. Menores", paragraphs: ["El Servicio está destinado a mayores de 18 años. No recopilamos intencionalmente datos de menores."] },
-        { title: "10. Cambios", paragraphs: ["Podemos actualizar esta política. La fecha de la última actualización aparece en la parte superior. Los cambios relevantes se comunicarán por correo o en la aplicación."] },
+        { title: "10. Quiz y captación de contacto", paragraphs: ["Si respondes a nuestro quiz, las respuestas se usan para armar tu resultado y para entender qué perfiles de público tenemos. Dejar el correo es opcional: puedes ver el resultado sin informar nada. Si informas el correo y marcas la casilla de consentimiento, guardamos la dirección, las respuestas y el registro de ese consentimiento, con base legal en tu consentimiento (LGPD, art. 7, I), para enviarte el resultado y contenidos sobre el producto. Puedes revocarlo en cualquier momento, respondiendo a cualquier correo nuestro o escribiendo a {email}, y en ese caso borramos tu registro."] },
+        { title: "11. Cambios", paragraphs: ["Podemos actualizar esta política. La fecha de la última actualización aparece en la parte superior. Los cambios relevantes se comunicarán por correo o en la aplicación."] },
       ],
     },
     refund: {

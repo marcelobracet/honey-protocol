@@ -182,6 +182,109 @@ const fr: Dictionary = {
       alreadyBought: "Déjà acheté ?",
     },
   },
+  quiz: {
+    meta: {
+      title: "Découvrez pourquoi votre matinée vous lâche à 10 h",
+      description: "5 questions rapides pour identifier le schéma qui vous vide de votre énergie dès le matin.",
+    },
+    eyebrow: "5 questions · moins d'une minute",
+    title: "Pourquoi vous réveillez-vous fatigué même après une bonne nuit ?",
+    subtitle: "Répondez à 5 questions et je vous montre lequel des quatre schémas explique votre baisse d'énergie. Aucune inscription pour commencer.",
+    start: "Commencer",
+    progress: "Question {n} sur {total}",
+    back: "Retour",
+    questions: [
+      {
+        id: "acordar",
+        title: "Comment vous réveillez-vous, en général ?",
+        options: [
+          { value: "cansado", label: "Fatigué, même après avoir assez dormi" },
+          { value: "bem-cai", label: "Bien, mais je décroche en milieu de matinée" },
+          { value: "depende", label: "Ça dépend beaucoup des jours" },
+          { value: "disposto", label: "Presque toujours en forme" },
+        ],
+      },
+      {
+        id: "cafe",
+        title: "Combien de cafés buvez-vous avant midi ?",
+        options: [
+          { value: "0", label: "Aucun" },
+          { value: "1", label: "Un" },
+          { value: "2-3", label: "Deux ou trois" },
+          { value: "4+", label: "Plus de trois" },
+        ],
+      },
+      {
+        id: "atrapalha",
+        title: "Qu'est-ce qui gêne le plus vos matinées ?",
+        options: [
+          { value: "foco", label: "La tête met du temps à démarrer" },
+          { value: "energia", label: "Le corps manque d'énergie" },
+          { value: "tempo", label: "Il ne reste de temps pour rien" },
+          { value: "doce", label: "L'envie de sucré" },
+        ],
+      },
+      {
+        id: "tempo",
+        title: "Combien de temps avez-vous le matin, vraiment ?",
+        options: [
+          { value: "menos5", label: "Moins de 5 minutes" },
+          { value: "5-10", label: "Entre 5 et 10 minutes" },
+          { value: "10-20", label: "Entre 10 et 20 minutes" },
+          { value: "mais20", label: "Plus de 20 minutes" },
+        ],
+      },
+      {
+        id: "tentativas",
+        title: "Avez-vous déjà essayé de changer votre routine du matin ?",
+        options: [
+          { value: "nunca", label: "Je n'ai jamais vraiment essayé" },
+          { value: "dias", label: "J'ai essayé et j'ai abandonné en quelques jours" },
+          { value: "semanas", label: "J'ai essayé et j'ai abandonné après quelques semaines" },
+          { value: "mantenho", label: "J'ai une routine et je la tiens" },
+        ],
+      },
+    ],
+    capture: {
+      eyebrow: "Presque terminé",
+      title: "Où est-ce que je vous envoie votre résultat ?",
+      subtitle: "Laissez votre e-mail si vous voulez recevoir le résultat et des conseils pour vos matinées. C'est facultatif : vous pouvez voir le résultat tout de suite sans rien laisser.",
+      emailLabel: "Votre meilleur e-mail",
+      emailPlaceholder: "vous@exemple.com",
+      consent: "Je veux recevoir mon résultat et des conseils par e-mail. Je peux me désabonner quand je veux.",
+      submit: "Voir mon résultat",
+      submitting: "Envoi…",
+      skip: "Voir mon résultat sans recevoir d'e-mails",
+      invalidEmail: "Saisissez un e-mail valide.",
+      consentRequired: "Cochez la case ci-dessus pour que je puisse vous écrire.",
+      genericError: "Impossible d'enregistrer pour le moment. Voyez quand même votre résultat.",
+    },
+    result: {
+      eyebrow: "Votre résultat",
+      title: "Le schéma derrière vos matinées",
+      cta: "VOIR CE QU'IL FAUT FAIRE",
+      ctaHint: "Une vidéo de quelques minutes, avec la marche à suivre",
+      segments: {
+        coffee: {
+          title: "Vous êtes dans les montagnes russes du café",
+          body: "Votre corps a appris à réclamer un stimulant pour démarrer, et chaque dose se paie quelques heures plus tard. Ce n'est pas un manque de café, c'est un pic sans base. La solution n'est pas d'arrêter le café d'un coup, c'est de donner au corps une source d'énergie qu'il libère peu à peu, dès le réveil, avant le premier pic.",
+        },
+        time: {
+          title: "Votre problème, c'est le temps, pas la discipline",
+          body: "Vous n'avez pas besoin d'une routine d'une heure, mais d'une routine qui tient dans votre vraie matinée. Tout ce qui demande plus que ce que vous avez sera abandonné dès la première semaine, et cela ne dit rien de votre volonté. Ce qui marche dans votre cas, c'est un geste unique, de quelques minutes, toujours le même.",
+        },
+        relapse: {
+          title: "Vous savez déjà quoi faire, il vous manque de quoi tenir",
+          body: "Vous avez essayé, puis vous avez arrêté. C'est le schéma le plus courant de tous, et ce n'est presque jamais un manque d'information. Ce qui manque, c'est de rendre la série visible : sans compteur, un jour sauté en devient deux, et deux deviennent l'abandon. Ce qui change tout, c'est de voir votre propre régularité s'accumuler.",
+        },
+        focus: {
+          title: "Votre gêne vient de la tête, pas du corps",
+          body: "La sensation de tête lourde et de démarrage lent vient souvent de ce qui entre en premier dans le corps, pas de la quantité de sommeil. La caféine seule accélère sans organiser. Ce qui aide, c'est une combinaison qui apporte de l'attention sans agitation, prise avant que la journée ne commence à vous réclamer quelque chose.",
+        },
+      },
+      closing: "C'est une habitude qui soutient votre routine et ne remplace pas l'avis d'un professionnel de santé.",
+    },
+  },
   consent: {
     title: "Cookies et confidentialité",
     body: "Nous utilisons des cookies essentiels au fonctionnement du site et, avec votre accord, des cookies de mesure publicitaire (Meta Pixel et Google Analytics) pour comprendre d'où viennent nos visiteurs. Vous pouvez changer d'avis à tout moment.",
@@ -343,7 +446,8 @@ const fr: Dictionary = {
         { title: "7. Cookies", paragraphs: ["Cookies essentiels : session de connexion, langue et enregistrement de votre choix concernant les cookies. Cookies de mesure (facultatifs) : Meta Pixel et Google Analytics, activé uniquement après votre acceptation dans le bandeau. Vous pouvez modifier votre choix en effaçant les cookies de votre navigateur."] },
         { title: "8. Sécurité", paragraphs: ["Nous utilisons un accès par lien unique envoyé à votre e-mail (aucun mot de passe stocké), le chiffrement en transit, un contrôle d'accès par ligne dans la base de données et une journalisation des événements. Aucun système n'est sûr à 100 % ; en cas d'incident significatif, nous vous en informerons ainsi que les autorités, conformément à la loi."] },
         { title: "9. Mineurs", paragraphs: ["Le Service est destiné aux personnes majeures (18 ans et plus). Nous ne collectons pas sciemment de données concernant des mineurs."] },
-        { title: "10. Modifications", paragraphs: ["Nous pouvons mettre à jour la présente politique. La date de dernière mise à jour figure en haut de page. Les modifications importantes seront communiquées par e-mail ou dans l'application."] },
+        { title: "10. Quiz et collecte de contact", paragraphs: ["Si vous répondez à notre quiz, vos réponses servent à établir votre résultat et à comprendre quels profils composent notre audience. Laisser votre e-mail est facultatif : vous pouvez consulter le résultat sans rien communiquer. Si vous indiquez votre e-mail et cochez la case de consentement, nous conservons l'adresse, les réponses et la preuve de ce consentement, sur la base légale de votre consentement (LGPD, art. 7, I ; RGPD, art. 6, paragraphe 1, point a), afin de vous envoyer le résultat et des contenus sur le produit. Vous pouvez retirer votre consentement à tout moment, en répondant à l'un de nos e-mails ou en écrivant à {email} ; nous supprimons alors votre enregistrement."] },
+        { title: "11. Modifications", paragraphs: ["Nous pouvons mettre à jour la présente politique. La date de dernière mise à jour figure en haut de page. Les modifications importantes seront communiquées par e-mail ou dans l'application."] },
       ],
     },
     refund: {

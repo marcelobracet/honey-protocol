@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { localeTags, locales } from "@/i18n/config";
 import { publicEnv } from "@/lib/env";
 
-const PUBLIC_PATHS = ["", "/legal/terms", "/legal/privacy", "/legal/refund", "/support"];
+const PUBLIC_PATHS = ["", "/quiz", "/legal/terms", "/legal/privacy", "/legal/refund", "/support"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

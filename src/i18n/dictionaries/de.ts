@@ -182,6 +182,109 @@ const de: Dictionary = {
       alreadyBought: "Schon gekauft?",
     },
   },
+  quiz: {
+    meta: {
+      title: "Finde heraus, warum dich dein Morgen um 10 Uhr fallen lässt",
+      description: "5 kurze Fragen, um das Muster zu erkennen, das dir früh am Tag die Energie nimmt.",
+    },
+    eyebrow: "5 Fragen · weniger als eine Minute",
+    title: "Warum wachst du müde auf, obwohl du gut geschlafen hast?",
+    subtitle: "Beantworte 5 Fragen und ich zeige dir, welches der vier Muster hinter deinem Energieabfall steckt. Zum Starten brauchst du kein Konto.",
+    start: "Loslegen",
+    progress: "Frage {n} von {total}",
+    back: "Zurück",
+    questions: [
+      {
+        id: "acordar",
+        title: "Wie wachst du normalerweise auf?",
+        options: [
+          { value: "cansado", label: "Müde, obwohl ich genug geschlafen habe" },
+          { value: "bem-cai", label: "Gut, aber am Vormittag falle ich ab" },
+          { value: "depende", label: "Das hängt stark vom Tag ab" },
+          { value: "disposto", label: "Fast immer fit" },
+        ],
+      },
+      {
+        id: "cafe",
+        title: "Wie viele Kaffees trinkst du vor dem Mittagessen?",
+        options: [
+          { value: "0", label: "Keinen" },
+          { value: "1", label: "Einen" },
+          { value: "2-3", label: "Zwei oder drei" },
+          { value: "4+", label: "Mehr als drei" },
+        ],
+      },
+      {
+        id: "atrapalha",
+        title: "Was stört dich morgens am meisten?",
+        options: [
+          { value: "foco", label: "Der Kopf braucht lange, bis er anspringt" },
+          { value: "energia", label: "Dem Körper fehlt Energie" },
+          { value: "tempo", label: "Es bleibt für nichts Zeit" },
+          { value: "doce", label: "Die Lust auf Süßes" },
+        ],
+      },
+      {
+        id: "tempo",
+        title: "Wie viel Zeit hast du morgens wirklich?",
+        options: [
+          { value: "menos5", label: "Weniger als 5 Minuten" },
+          { value: "5-10", label: "Zwischen 5 und 10 Minuten" },
+          { value: "10-20", label: "Zwischen 10 und 20 Minuten" },
+          { value: "mais20", label: "Mehr als 20 Minuten" },
+        ],
+      },
+      {
+        id: "tentativas",
+        title: "Hast du schon versucht, deinen Morgen umzustellen?",
+        options: [
+          { value: "nunca", label: "Noch nie wirklich versucht" },
+          { value: "dias", label: "Versucht und nach wenigen Tagen aufgegeben" },
+          { value: "semanas", label: "Versucht und nach ein paar Wochen aufgegeben" },
+          { value: "mantenho", label: "Ich habe eine Routine und halte sie durch" },
+        ],
+      },
+    ],
+    capture: {
+      eyebrow: "Fast geschafft",
+      title: "Wohin schicke ich dein Ergebnis?",
+      subtitle: "Lass deine E-Mail-Adresse da, wenn du das Ergebnis und Tipps für deinen Morgen bekommen willst. Das ist freiwillig – dein Ergebnis kannst du dir auch sofort ansehen, ohne etwas zu hinterlassen.",
+      emailLabel: "Deine beste E-Mail-Adresse",
+      emailPlaceholder: "du@beispiel.de",
+      consent: "Ich möchte mein Ergebnis und Tipps per E-Mail bekommen. Ich kann mich jederzeit abmelden.",
+      submit: "Mein Ergebnis ansehen",
+      submitting: "Wird gesendet…",
+      skip: "Mein Ergebnis ohne E-Mails ansehen",
+      invalidEmail: "Gib eine gültige E-Mail-Adresse ein.",
+      consentRequired: "Setz oben das Häkchen, damit ich dir schreiben darf.",
+      genericError: "Wir können gerade nicht speichern. Sieh dir dein Ergebnis trotzdem an.",
+    },
+    result: {
+      eyebrow: "Dein Ergebnis",
+      title: "Das Muster hinter deinem Morgen",
+      cta: "SIEH, WAS DU DAGEGEN TUN KANNST",
+      ctaHint: "Ein Video von wenigen Minuten, mit der Anleitung Schritt für Schritt",
+      segments: {
+        coffee: {
+          title: "Du sitzt in der Kaffee-Achterbahn",
+          body: "Dein Körper hat gelernt, nach einem Reiz zu verlangen, um in Gang zu kommen, und jede Dosis stellt ein paar Stunden später die Rechnung. Es fehlt nicht an Kaffee, es fehlt die Basis unter dem Hoch. Der Weg ist nicht, den Kaffee auf einen Schlag zu streichen, sondern deinem Körper gleich nach dem Aufwachen eine Energiequelle zu geben, die er langsam freigibt, noch vor dem ersten Hoch.",
+        },
+        time: {
+          title: "Dein Problem ist die Zeit, nicht die Disziplin",
+          body: "Du brauchst keine Routine von einer Stunde, sondern eine, die in deinen echten Morgen passt. Alles, was mehr verlangt, als du hast, bleibt schon in der ersten Woche liegen, und das sagt nichts über deine Willenskraft. Bei dir funktioniert ein einziger Handgriff von wenigen Minuten, immer derselbe.",
+        },
+        relapse: {
+          title: "Du weißt schon, was zu tun ist, dir fehlt nur, was dich dranbleiben lässt",
+          body: "Du hast es versucht und wieder aufgehört. Das ist das häufigste Muster von allen, und es liegt fast nie an fehlenden Informationen. Was fehlt, ist etwas, das die Serie sichtbar macht: ohne Zähler wird aus einem ausgelassenen Tag schnell ein zweiter, und aus zweien das Ende. Den Unterschied macht, die eigene Beständigkeit wachsen zu sehen.",
+        },
+        focus: {
+          title: "Dein Thema sitzt im Kopf, nicht im Körper",
+          body: "Das Gefühl von schwerem Kopf und langsamem Anlaufen kommt meist von dem, was zuerst in den Körper kommt, nicht von der Menge Schlaf. Koffein allein beschleunigt, ohne zu ordnen. Es hilft eine Kombination, die Aufmerksamkeit bringt, ohne unruhig zu machen, eingenommen, bevor der Tag anfängt, etwas von dir zu fordern.",
+        },
+      },
+      closing: "Das ist eine Gewohnheit zur Unterstützung deiner Routine und ersetzt keine professionelle medizinische Beratung.",
+    },
+  },
   consent: {
     title: "Cookies und Datenschutz",
     body: "Wir verwenden essenzielle Cookies, damit die Website funktioniert, und – mit deiner Erlaubnis – Cookies zur Anzeigenmessung (Meta Pixel und Google Analytics), um zu verstehen, woher unsere Besucher kommen. Du kannst deine Meinung jederzeit ändern.",
@@ -343,7 +446,8 @@ const de: Dictionary = {
         { title: "7. Cookies", paragraphs: ["Essenzielle Cookies: Login-Sitzung, Sprache und Speicherung deiner Cookie-Entscheidung. Mess-Cookies (optional): Meta Pixel und Google Analytics, nur nach deiner Zustimmung im Banner aktiviert. Du kannst deine Entscheidung ändern, indem du die Cookies deines Browsers löschst."] },
         { title: "8. Sicherheit", paragraphs: ["Wir nutzen den Zugang per einmaligem Link an deine E-Mail-Adresse (keine gespeicherten Passwörter), Verschlüsselung bei der Übertragung, zeilenbasierte Zugriffskontrolle in der Datenbank und Ereignisprotokollierung. Kein System ist zu 100 % sicher; bei einem relevanten Vorfall informieren wir dich und die Behörden gemäß den gesetzlichen Vorgaben."] },
         { title: "9. Kinder", paragraphs: ["Der Dienst richtet sich an Personen ab 18 Jahren. Wir erheben nicht wissentlich Daten von Kindern."] },
-        { title: "10. Änderungen", paragraphs: ["Wir können diese Erklärung aktualisieren. Das Datum der letzten Aktualisierung steht oben. Wesentliche Änderungen werden per E-Mail oder in der App mitgeteilt."] },
+        { title: "10. Quiz und Kontakterfassung", paragraphs: ["Wenn du unser Quiz beantwortest, nutzen wir deine Antworten, um dein Ergebnis zu erstellen und um zu verstehen, welche Zielgruppenprofile wir haben. Deine E-Mail-Adresse anzugeben ist freiwillig: Du siehst das Ergebnis auch, ohne etwas anzugeben. Wenn du die E-Mail-Adresse angibst und das Einwilligungsfeld ankreuzt, speichern wir die Adresse, die Antworten und den Nachweis dieser Einwilligung, auf Grundlage deiner Einwilligung (DSGVO, Art. 6 Abs. 1 lit. a; LGPD, Art. 7, I), um dir das Ergebnis und Inhalte zum Produkt zu senden. Du kannst die Einwilligung jederzeit widerrufen, indem du auf eine unserer E-Mails antwortest oder an {email} schreibst; wir löschen dann deinen Datensatz."] },
+        { title: "11. Änderungen", paragraphs: ["Wir können diese Erklärung aktualisieren. Das Datum der letzten Aktualisierung steht oben. Wesentliche Änderungen werden per E-Mail oder in der App mitgeteilt."] },
       ],
     },
     refund: {

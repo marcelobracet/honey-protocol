@@ -182,6 +182,109 @@ const en: Dictionary = {
       alreadyBought: "Already bought?",
     },
   },
+  quiz: {
+    meta: {
+      title: "Find out why your morning drops you at 10 a.m.",
+      description: "5 quick questions to spot the pattern that is draining your energy first thing in the day.",
+    },
+    eyebrow: "5 questions · under 1 minute",
+    title: "Why do you wake up tired even after sleeping well?",
+    subtitle: "Answer 5 questions and I'll show you which of the four patterns is behind your energy crash. No signup to start.",
+    start: "Start",
+    progress: "Question {n} of {total}",
+    back: "Back",
+    questions: [
+      {
+        id: "acordar",
+        title: "How do you usually wake up?",
+        options: [
+          { value: "cansado", label: "Tired, even after enough sleep" },
+          { value: "bem-cai", label: "Fine, but I crash mid-morning" },
+          { value: "depende", label: "It depends a lot on the day" },
+          { value: "disposto", label: "Almost always ready to go" },
+        ],
+      },
+      {
+        id: "cafe",
+        title: "How many coffees do you drink before lunch?",
+        options: [
+          { value: "0", label: "None" },
+          { value: "1", label: "One" },
+          { value: "2-3", label: "Two or three" },
+          { value: "4+", label: "More than three" },
+        ],
+      },
+      {
+        id: "atrapalha",
+        title: "What gets in the way of your morning the most?",
+        options: [
+          { value: "foco", label: "My head takes forever to “switch on”" },
+          { value: "energia", label: "No energy in my body" },
+          { value: "tempo", label: "There's no time left for anything" },
+          { value: "doce", label: "Cravings for something sweet" },
+        ],
+      },
+      {
+        id: "tempo",
+        title: "How much time do you really have in the morning?",
+        options: [
+          { value: "menos5", label: "Less than 5 minutes" },
+          { value: "5-10", label: "Between 5 and 10 minutes" },
+          { value: "10-20", label: "Between 10 and 20 minutes" },
+          { value: "mais20", label: "More than 20 minutes" },
+        ],
+      },
+      {
+        id: "tentativas",
+        title: "Have you tried to change your morning routine before?",
+        options: [
+          { value: "nunca", label: "Never really tried" },
+          { value: "dias", label: "Tried it and quit within days" },
+          { value: "semanas", label: "Tried it and quit after a few weeks" },
+          { value: "mantenho", label: "I have a routine and I stick to it" },
+        ],
+      },
+    ],
+    capture: {
+      eyebrow: "Almost there",
+      title: "Where should I send your result?",
+      subtitle: "Leave your email if you want the result and tips for your morning. It's optional, and you can see your result right now without leaving anything.",
+      emailLabel: "Your best email",
+      emailPlaceholder: "you@example.com",
+      consent: "I want to get my result and tips by email. I can unsubscribe whenever I want.",
+      submit: "See my result",
+      submitting: "Sending…",
+      skip: "See my result without getting emails",
+      invalidEmail: "Enter a valid email address.",
+      consentRequired: "Check the box above so I can email you.",
+      genericError: "We couldn't save that right now. See your result anyway.",
+    },
+    result: {
+      eyebrow: "Your result",
+      title: "The pattern behind your morning",
+      cta: "SEE WHAT TO DO ABOUT IT",
+      ctaHint: "A few-minute video with the step by step",
+      segments: {
+        coffee: {
+          title: "You're on the coffee roller coaster",
+          body: "Your body has learned to ask for a stimulus before it will work, and every dose sends the bill a few hours later. It isn't a lack of coffee, it's a spike with nothing underneath it. The way out isn't cutting coffee all at once — it's giving your body a source of energy it can release slowly, right when you wake up, before the first spike.",
+        },
+        time: {
+          title: "Your problem is time, not discipline",
+          body: "You don't need an hour-long routine, you need one that fits the morning you actually have. Anything that asks for more time than you have gets dropped in the first week, and that says nothing about your willpower. What works in your case is a single gesture, a few minutes long, always the same.",
+        },
+        relapse: {
+          title: "You already know what to do — what's missing is what keeps you going",
+          body: "You tried before, and you stopped. That's the most common pattern of all, and it's almost never a lack of information. What fails is having nothing that makes the streak visible: with no counter, one missed day turns into two, and two turn into quitting. What changes the game is watching your own consistency add up.",
+        },
+        focus: {
+          title: "Your complaint is in your head, not your body",
+          body: "That heavy-headed, slow-to-start feeling usually comes from what goes into your body first, not from how much you slept. Caffeine on its own speeds you up without organizing anything. What helps is a combination that brings attention without agitation, taken before the day starts making demands on you.",
+        },
+      },
+      closing: "This is a habit that supports your routine and does not replace professional health advice.",
+    },
+  },
   consent: {
     title: "Cookies and privacy",
     body: "We use essential cookies to make the site work and, with your permission, ad-measurement cookies (Meta Pixel and Google Analytics) to understand where our visitors come from. You can change your mind at any time.",
@@ -343,7 +446,8 @@ const en: Dictionary = {
         { title: "7. Cookies", paragraphs: ["Essential cookies: login session, language and a record of your cookie choice. Measurement cookies (optional): Meta Pixel and Google Analytics, activated only after you accept in the banner. You can change your choice by clearing your browser cookies."] },
         { title: "8. Security", paragraphs: ["We use single-use login links sent to your email (no stored passwords), encryption in transit, row-level access control in the database and event logging. No system is 100% secure; in the event of a material incident, we will notify you and the authorities as required by law."] },
         { title: "9. Children", paragraphs: ["The Service is intended for people aged 18 and over. We do not knowingly collect data from children."] },
-        { title: "10. Changes", paragraphs: ["We may update this policy. The date of the last update appears at the top. Material changes will be communicated by email or in the app."] },
+        { title: "10. Quiz and contact capture", paragraphs: ["If you answer our quiz, your answers are used to build your result and to help us understand the audience profiles we have. Leaving your email is optional: you can see the result without giving us anything. If you do give your email and tick the consent box, we store the address, the answers and the record of that consent, on the legal basis of your consent (LGPD, art. 7, I), in order to send you the result and content about the product. You can withdraw your consent at any time by replying to any of our emails or writing to {email}, and we then delete your record."] },
+        { title: "11. Changes", paragraphs: ["We may update this policy. The date of the last update appears at the top. Material changes will be communicated by email or in the app."] },
       ],
     },
     refund: {
