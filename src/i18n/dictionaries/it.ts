@@ -17,6 +17,7 @@ const it: Dictionary = {
     back: "Indietro",
     loading: "Caricamento…",
     language: "Lingua",
+    alreadyMember: "Hai già accesso a Il Trucco del Miele.",
   },
   landing: {
     hero: {

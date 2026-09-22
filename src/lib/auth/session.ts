@@ -57,3 +57,22 @@ export const sessionCookieOptions = {
   path: "/",
   maxAge: SESSION_MAX_AGE,
 };
+
+/**
+ * A readable companion to the session cookie, carrying no secret and no
+ * identity — only the fact that this browser has an account.
+ *
+ * The sales page is prerendered, and reading the httpOnly session on the
+ * server would make it dynamic for every visitor, almost all of whom have
+ * never bought. This flag lets the page stay static and let a tiny client
+ * component greet the buyer instead.
+ */
+export const MEMBER_HINT_COOKIE = "hp_member";
+
+export const memberHintCookieOptions = {
+  httpOnly: false,
+  sameSite: "lax" as const,
+  secure: process.env.NODE_ENV === "production",
+  path: "/",
+  maxAge: SESSION_MAX_AGE,
+};

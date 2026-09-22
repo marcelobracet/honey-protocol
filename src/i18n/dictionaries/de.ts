@@ -17,6 +17,7 @@ const de: Dictionary = {
     back: "Zurück",
     loading: "Lädt…",
     language: "Sprache",
+    alreadyMember: "Du hast bereits Zugang zu Der Honig-Trick.",
   },
   landing: {
     hero: {

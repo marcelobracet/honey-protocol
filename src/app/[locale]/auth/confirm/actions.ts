@@ -4,7 +4,7 @@ import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { isLocale, localePath, type Locale } from "@/i18n/config";
 import { consumeLoginToken } from "@/lib/auth/tokens";
-import { SESSION_COOKIE, sessionCookieOptions, signSession } from "@/lib/auth/session";
+import { MEMBER_HINT_COOKIE, SESSION_COOKIE, memberHintCookieOptions, sessionCookieOptions, signSession } from "@/lib/auth/session";
 import { getEntitlementByEmail } from "@/lib/access";
 import { findOrCreateUser } from "@/lib/dal";
 import { sql } from "@/lib/db";
@@ -45,7 +45,9 @@ async function exchange(token: string, locale: Locale): Promise<Outcome> {
 
     const user = await findOrCreateUser(consumed.email, { name: entitlement.buyer_name, locale });
     const jwt = await signSession({ sub: user.id, email: user.email }, serverEnv.sessionSecret);
-    (await cookies()).set(SESSION_COOKIE, jwt, sessionCookieOptions);
+    const jar = await cookies();
+    jar.set(SESSION_COOKIE, jwt, sessionCookieOptions);
+    jar.set(MEMBER_HINT_COOKIE, "1", memberHintCookieOptions);
 
     // LGPD: log acceptance of terms/privacy at first sign-in (once per version).
     const ua = (await headers()).get("user-agent")?.slice(0, 300) ?? null;

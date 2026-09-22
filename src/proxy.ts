@@ -1,6 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { LOCALE_COOKIE, isLocale, localePath, negotiateLocale, type Locale } from "@/i18n/config";
-import { SESSION_COOKIE, sessionCookieOptions, shouldRenew, signSession, verifySession } from "@/lib/auth/session";
+import {
+  MEMBER_HINT_COOKIE,
+  SESSION_COOKIE,
+  memberHintCookieOptions,
+  sessionCookieOptions,
+  shouldRenew,
+  signSession,
+  verifySession,
+} from "@/lib/auth/session";
 
 export const config = {
   // Everything except Next internals, static files and API route handlers.
@@ -53,6 +61,7 @@ export async function proxy(request: NextRequest) {
         try {
           const renewed = await signSession({ sub: session.sub, email: session.email }, secret);
           response.cookies.set(SESSION_COOKIE, renewed, sessionCookieOptions);
+          response.cookies.set(MEMBER_HINT_COOKIE, "1", memberHintCookieOptions);
         } catch {
           // Keep serving the request on the existing, still-valid token.
         }

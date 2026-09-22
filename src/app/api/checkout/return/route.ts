@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { defaultLocale, isLocale, localePath, type Locale } from "@/i18n/config";
 import { grantAccess } from "@/lib/access";
-import { SESSION_COOKIE, sessionCookieOptions, signSession } from "@/lib/auth/session";
+import { MEMBER_HINT_COOKIE, SESSION_COOKIE, memberHintCookieOptions, sessionCookieOptions, signSession } from "@/lib/auth/session";
 import { findOrCreateUser } from "@/lib/dal";
 import { sql } from "@/lib/db";
 import { isDatabaseConfigured, serverEnv } from "@/lib/env";
@@ -82,6 +82,7 @@ export async function GET(request: NextRequest) {
     locale = result.locale;
     const response = back("?ready=1");
     response.cookies.set(SESSION_COOKIE, token, sessionCookieOptions);
+    response.cookies.set(MEMBER_HINT_COOKIE, "1", memberHintCookieOptions);
     return response;
   } catch (err) {
     console.error("[checkout/return]", err);

@@ -5,6 +5,7 @@ import { StickyCta } from "@/components/landing/sticky-cta";
 import { ExitIntent } from "@/components/landing/exit-intent";
 import { getAnchorPrice, getBackRedirectUrl, getCheckoutBaseUrl, getDisplayPrice, publicEnv } from "@/lib/env";
 import { BackRedirect } from "@/components/landing/back-redirect";
+import { MemberBanner } from "@/components/landing/member-banner";
 import {
   Close,
   EvenIf,
@@ -44,6 +45,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
 
   return (
     <>
+      <MemberBanner locale={locale} text={dict.common.alreadyMember} cta={dict.common.openApp} />
       <Header ctx={ctx} />
       <main className="flex-1">
         <Hero ctx={ctx} />

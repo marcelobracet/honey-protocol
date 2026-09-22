@@ -17,6 +17,7 @@ const es: Dictionary = {
     back: "Volver",
     loading: "Cargando…",
     language: "Idioma",
+    alreadyMember: "Ya tienes acceso a El Truco de la Miel.",
   },
   landing: {
     hero: {

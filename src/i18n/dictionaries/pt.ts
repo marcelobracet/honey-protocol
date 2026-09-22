@@ -17,6 +17,7 @@ const pt: Dictionary = {
     back: "Voltar",
     loading: "Carregando…",
     language: "Idioma",
+    alreadyMember: "Você já tem acesso ao Truque do Mel.",
   },
   landing: {
     hero: {

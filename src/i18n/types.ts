@@ -29,6 +29,8 @@ export interface Dictionary {
     back: string;
     loading: string;
     language: string;
+    /** Greets a buyer who lands on the sales page again. */
+    alreadyMember: string;
   };
   landing: {
     hero: {

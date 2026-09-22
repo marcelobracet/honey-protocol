@@ -3,14 +3,16 @@
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { isLocale, localePath } from "@/i18n/config";
-import { SESSION_COOKIE } from "@/lib/auth/session";
+import { MEMBER_HINT_COOKIE, SESSION_COOKIE } from "@/lib/auth/session";
 import { getUser } from "@/lib/dal";
 import { sql } from "@/lib/db";
 
 export async function signOut(formData: FormData): Promise<void> {
   const raw = formData.get("locale");
   const locale = typeof raw === "string" && isLocale(raw) ? raw : "pt";
-  (await cookies()).delete(SESSION_COOKIE);
+  const jar = await cookies();
+  jar.delete(SESSION_COOKIE);
+  jar.delete(MEMBER_HINT_COOKIE);
   redirect(localePath(locale, "/"));
 }
 

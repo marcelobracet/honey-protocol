@@ -17,6 +17,7 @@ const fr: Dictionary = {
     back: "Retour",
     loading: "Chargement…",
     language: "Langue",
+    alreadyMember: "Vous avez déjà accès à L'Astuce du Miel.",
   },
   landing: {
     hero: {

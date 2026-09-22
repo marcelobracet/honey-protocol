@@ -17,6 +17,7 @@ const en: Dictionary = {
     back: "Back",
     loading: "Loading…",
     language: "Language",
+    alreadyMember: "You already have access to The Honey Trick.",
   },
   landing: {
     hero: {
