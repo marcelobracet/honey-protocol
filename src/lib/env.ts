@@ -18,9 +18,27 @@ export const publicEnv = {
   statementDescriptor: process.env.NEXT_PUBLIC_STATEMENT_DESCRIPTOR ?? "",
 };
 
+/**
+ * Connection string for the environment this code is running in.
+ *
+ * Vercel's Neon integration injects the production connection string into
+ * preview builds too, whatever the environment variable is scoped to. That
+ * let a throwaway branch run migrations and write rows against live buyer
+ * data. On preview we therefore ignore what the integration injects and use
+ * `PREVIEW_DATABASE_URL`, which stays empty until a separate database branch
+ * exists. Preview then behaves as if it had no database: the quiz still shows
+ * its result, it simply stores nothing.
+ */
+function resolveDatabaseUrl(): string {
+  if (process.env.VERCEL_ENV === "preview") {
+    return process.env.PREVIEW_DATABASE_URL ?? "";
+  }
+  return process.env.DATABASE_URL ?? process.env.POSTGRES_URL ?? "";
+}
+
 /** Server-only secrets. Never import this from a client component. */
 export const serverEnv = {
-  databaseUrl: process.env.DATABASE_URL ?? process.env.POSTGRES_URL ?? "",
+  databaseUrl: resolveDatabaseUrl(),
   sessionSecret: process.env.SESSION_SECRET ?? "",
   hotmartHottok: process.env.HOTMART_HOTTOK ?? "",
   hotmartProductIds: (process.env.HOTMART_PRODUCT_IDS ?? "")

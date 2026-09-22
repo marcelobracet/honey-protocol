@@ -20,14 +20,24 @@ import postgres from "postgres";
 config({ path: ".env.local" });
 config();
 
-const url =
-  process.env.DATABASE_URL_UNPOOLED ??
-  process.env.POSTGRES_URL_NON_POOLING ??
-  process.env.DATABASE_URL ??
-  process.env.POSTGRES_URL;
+// Vercel's Neon integration injects the production connection string into
+// preview builds as well, so a preview build used to migrate the live schema.
+// Preview now only ever touches a database it was given explicitly.
+const isPreview = process.env.VERCEL_ENV === "preview";
+
+const url = isPreview
+  ? process.env.PREVIEW_DATABASE_URL_UNPOOLED ?? process.env.PREVIEW_DATABASE_URL
+  : process.env.DATABASE_URL_UNPOOLED ??
+    process.env.POSTGRES_URL_NON_POOLING ??
+    process.env.DATABASE_URL ??
+    process.env.POSTGRES_URL;
 
 if (!url) {
-  console.log("[migrate] no DATABASE_URL configured — skipping.");
+  console.log(
+    isPreview
+      ? "[migrate] preview build with no PREVIEW_DATABASE_URL — skipping, production is left alone."
+      : "[migrate] no DATABASE_URL configured — skipping.",
+  );
   process.exit(0);
 }
 
