@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+@theme {
+  --color-honey-bg: #241609;
+  --color-honey-bg-alt: #2f1d0f;
+  --color-honey-surface: #3a2415;
+  --color-honey-surface-2: #4a2f1a;
+  --color-honey-text: #f6ead2;
+  --color-honey-text-dim: #c7ab84;
+  --color-honey-text-faint: #8a745a;
+  --color-honey-gold: #e3a63e;
+  --color-honey-gold-light: #f6cf7c;
+  --color-honey-sage: #8fa084;
+  --color-honey-rust: #c06a2c;
+  --color-honey-line: rgba(246, 234, 210, 0.1);
+
+  --font-display: var(--font-fraunces), serif;
+  --font-body: var(--font-manrope), system-ui, sans-serif;
+
+  --animate-rise: rise 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: radial-gradient(
+    120% 90% at 50% -10%,
+    #3a230f 0%,
+    var(--color-honey-bg) 55%,
+    #180d04 100%
+  );
+  background-attachment: fixed;
+  color: var(--color-honey-text);
+  font-family: var(--font-body);
+  -webkit-tap-highlight-color: transparent;
+}
+
+* {
+  box-sizing: border-box;
+}
