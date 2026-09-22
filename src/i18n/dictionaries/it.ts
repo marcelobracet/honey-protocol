@@ -355,6 +355,13 @@ const it: Dictionary = {
     },
   },
   thanks: {
+    readyEyebrow: "Tutto pronto",
+    readyTitle: "Il tuo accesso è già attivo 🍯",
+    readyBody: "Sei già dentro. Tocca il pulsante per vedere la ricetta e preparare il tuo primo Trucco del Miele domani mattina.",
+    readyCta: "Entra nel mio rituale",
+    readyKeepAccess: "Consiglio: aggiungi l'app alla schermata home del telefono. Così torni con un tocco, senza bisogno di nessun link.",
+    pendingTitle: "Stiamo confermando il tuo pagamento",
+    pendingBody: "Alcuni metodi di pagamento richiedono qualche minuto per essere accreditati. Appena il pagamento viene approvato, il tuo accesso si attiva automaticamente. Puoi chiudere questa pagina.",
     eyebrow: "Acquisto confermato",
     title: "Benvenuto nel tuo rituale 🍯",
     subtitle: "Il tuo accesso si sta attivando proprio ora. Mancano solo 3 passi:",

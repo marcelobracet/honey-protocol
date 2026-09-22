@@ -195,6 +195,15 @@ export interface Dictionary {
     refund: { title: string; sections: LegalSection[] };
   };
   thanks: {
+    /** Shown when the buyer was signed in automatically on return from checkout. */
+    readyEyebrow: string;
+    readyTitle: string;
+    readyBody: string;
+    readyCta: string;
+    readyKeepAccess: string;
+    /** Shown when the payment is still settling (boleto, bank transfer). */
+    pendingTitle: string;
+    pendingBody: string;
     eyebrow: string;
     title: string;
     subtitle: string;

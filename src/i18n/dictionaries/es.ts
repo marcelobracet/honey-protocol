@@ -355,6 +355,13 @@ const es: Dictionary = {
     },
   },
   thanks: {
+    readyEyebrow: "Todo listo",
+    readyTitle: "Tu acceso ya está liberado 🍯",
+    readyBody: "Ya estás dentro. Toca el botón para ver la receta y preparar tu primer Truco de la Miel mañana por la mañana.",
+    readyCta: "Entrar a mi ritual",
+    readyKeepAccess: "Consejo: agrega la app a la pantalla de inicio de tu celular. Así vuelves con un toque, sin necesidad de ningún enlace.",
+    pendingTitle: "Estamos confirmando tu pago",
+    pendingBody: "Algunos medios de pago tardan unos minutos en acreditarse. En cuanto se apruebe el pago, tu acceso se libera automáticamente. Puedes cerrar esta página.",
     eyebrow: "Compra confirmada",
     title: "Bienvenido a tu ritual 🍯",
     subtitle: "Tu acceso se está liberando ahora. Solo faltan 3 pasos:",

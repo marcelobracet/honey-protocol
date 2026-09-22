@@ -8,6 +8,14 @@ export interface SessionPayload {
   email: string;
 }
 
+export interface VerifiedSession extends SessionPayload {
+  /** Expiry as a Unix timestamp in seconds, used to decide when to renew. */
+  exp: number;
+}
+
+/** Renew once the token is past half its life, so an active user never expires. */
+export const SESSION_RENEW_AFTER = SESSION_MAX_AGE / 2;
+
 function secretKey(secret: string): Uint8Array {
   if (!secret || secret.length < 32) {
     throw new Error("SESSION_SECRET must be set and at least 32 characters long.");
@@ -26,15 +34,20 @@ export async function signSession(payload: SessionPayload, secret: string): Prom
 }
 
 /** Returns the payload if the token is valid and unexpired, else null. */
-export async function verifySession(token: string | undefined, secret: string): Promise<SessionPayload | null> {
+export async function verifySession(token: string | undefined, secret: string): Promise<VerifiedSession | null> {
   if (!token || !secret) return null;
   try {
     const { payload } = await jwtVerify(token, secretKey(secret), { algorithms: ["HS256"] });
-    if (typeof payload.sub !== "string" || typeof payload.email !== "string") return null;
-    return { sub: payload.sub, email: payload.email };
+    if (typeof payload.sub !== "string" || typeof payload.email !== "string" || typeof payload.exp !== "number") return null;
+    return { sub: payload.sub, email: payload.email, exp: payload.exp };
   } catch {
     return null;
   }
+}
+
+/** True when the token is close enough to expiry that it should be re-issued. */
+export function shouldRenew(session: VerifiedSession, now = Date.now()): boolean {
+  return session.exp - Math.floor(now / 1000) < SESSION_RENEW_AFTER;
 }
 
 export const sessionCookieOptions = {

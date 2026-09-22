@@ -355,6 +355,13 @@ const fr: Dictionary = {
     },
   },
   thanks: {
+    readyEyebrow: "Tout est prêt",
+    readyTitle: "Votre accès est déjà activé 🍯",
+    readyBody: "Vous êtes déjà à l'intérieur. Touchez le bouton pour voir la recette et préparer votre première Astuce du Miel demain matin.",
+    readyCta: "Accéder à mon rituel",
+    readyKeepAccess: "Astuce : ajoutez l'app à l'écran d'accueil de votre téléphone. Vous revenez ainsi en un geste, sans aucun lien.",
+    pendingTitle: "Nous confirmons votre paiement",
+    pendingBody: "Certains moyens de paiement mettent quelques minutes à être validés. Dès que le paiement est approuvé, votre accès est activé automatiquement. Vous pouvez fermer cette page.",
     eyebrow: "Achat confirmé",
     title: "Bienvenue dans votre rituel 🍯",
     subtitle: "Votre accès est en cours d'activation. Il ne reste que 3 étapes :",

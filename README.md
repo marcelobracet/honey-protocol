@@ -14,6 +14,7 @@ O checkout é o **KashPay**, que cobra pela sua própria conta **Stripe**. Por i
 | `/{locale}/account` | Minha conta: idioma, lembretes, exportar e excluir dados (LGPD) |
 | `/{locale}/legal/{terms,privacy,refund}` | Termos, privacidade, reembolso |
 | `/{locale}/support` | Suporte |
+| `/api/checkout/return` | Retorno do checkout: confere a sessão no Stripe, libera e **já loga o comprador** |
 | `/api/webhooks/stripe` | Webhook Stripe (KashPay): libera e revoga acesso |
 | `/api/webhooks/hotmart` | Webhook Hotmart: idem, para vendas na Hotmart |
 | `/api/cron/reminders` | Cron horário: lembrete matinal + sequência de e-mails dos 7 primeiros dias |
@@ -33,10 +34,19 @@ O checkout é o **KashPay**, que cobra pela sua própria conta **Stripe**. Por i
 ## Fluxo do comprador
 
 1. Tráfego cai na landing (`/pt`, `/en`…) com `utm_*`. Os UTMs ficam na sessão e vão para o link do checkout, junto com o idioma (`lang={locale}`, ou `xcod` no modo Hotmart).
-2. Pagamento aprovado → `checkout.session.completed` no Stripe → cria/ativa `entitlements` e envia **e-mail de boas-vindas com link mágico** no idioma do comprador.
-3. Comprador clica → `/{locale}/auth/confirm?token=…` → a página envia o token por POST (evita que scanners de e-mail queimem o link) → sessão criada → `/app`.
-4. Reembolso total ou chargeback → webhook revoga o acesso; o app mostra a tela "acesso indisponível". Reembolso parcial não revoga, e disputa ganha devolve o acesso.
-5. Para entrar depois: `/login` com o e-mail da compra → novo link. A resposta é a mesma para e-mails sem compra (não vaza quem é cliente).
+2. Pagamento aprovado → o comprador volta para `/api/checkout/return?session_id={CHECKOUT_SESSION_ID}`, que confere a sessão direto no Stripe, libera o acesso e **cria a sessão ali mesmo**. Ele cai na página de obrigado já logado, com um botão para o app.
+3. Em paralelo, `checkout.session.completed` chega no webhook e libera o acesso de novo (é idempotente), cobrindo quem fechou a aba antes de voltar. O e-mail de boas-vindas com link mágico é enviado se houver provedor configurado, e falhar nele não derruba o evento.
+4. Quem perdeu a sessão entra por `/{locale}/auth/confirm?token=…`, que envia o token por POST para scanners de e-mail não queimarem o link.
+5. Reembolso total ou chargeback → webhook revoga o acesso; o app mostra a tela "acesso indisponível". Reembolso parcial não revoga, e disputa ganha devolve o acesso.
+6. Para entrar depois: `/login` com o e-mail da compra → novo link. A resposta é a mesma para e-mails sem compra (não vaza quem é cliente).
+
+### E-mail não está no caminho crítico
+
+O acesso é entregue na volta do checkout, sem depender de e-mail. Isso importa porque **enviar e-mail exige um domínio próprio**: nenhum provedor sério entrega para terceiros a partir de um domínio que não é seu, e endereços `@gmail.com` ou `@outlook.com` como remetente são rejeitados ou vão para spam desde as regras de autenticação de 2024. O Resend, sem domínio verificado, só entrega para o dono da conta.
+
+Enquanto não houver domínio, o comprador entra pela página de retorno e continua dentro: a sessão dura 30 dias e **se renova sozinha** a cada visita passada a metade do prazo, então quem usa o app nunca é deslogado. Vale sugerir adicionar à tela inicial, que é o que a página de obrigado faz.
+
+O que ainda precisa de e-mail, e portanto de domínio: entrar de outro aparelho, o lembrete matinal e a sequência de onboarding.
 
 ### Como o idioma do comprador é descoberto
 
@@ -65,7 +75,7 @@ Depois use `/pt/login` com esse e-mail e copie o link do terminal.
 2. **Storage → Neon → Connect** (cria `DATABASE_URL`). As migrações rodam sozinhas: `npm run build` executa `db:migrate` antes do `next build`, então o primeiro deploy depois de conectar o banco já cria as tabelas. Sem `DATABASE_URL` o passo é pulado e o build passa normalmente. Um *advisory lock* impede que dois deploys simultâneos apliquem a mesma migração.
 3. Environment Variables: tudo de `.env.local.example`. Obrigatórios: `NEXT_PUBLIC_SITE_URL`, `DATABASE_URL`, `SESSION_SECRET`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `CHECKOUT_URL`, `RESEND_API_KEY`, `EMAIL_FROM`, `CRON_SECRET`, `NEXT_PUBLIC_SUPPORT_EMAIL`, dados da empresa.
 4. **Stripe** → Dashboard → Webhooks → criar destino apontando para `https://seu-dominio/api/webhooks/stripe`, assinando `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `charge.refunded`, `charge.dispute.created` e `charge.dispute.closed`. Copie o segredo `whsec_…` para `STRIPE_WEBHOOK_SECRET`.
-5. **KashPay** → conecte a mesma conta Stripe, cole o link do checkout em `CHECKOUT_URL` e defina a página de obrigado como `https://seu-dominio/pt/thank-you` (uma por idioma). Confirme que o KashPay repassa os parâmetros da query para os metadados da sessão do Stripe; se não repassar, o idioma cai para o país da cobrança.
+5. **KashPay** → conecte a mesma conta Stripe, cole o link do checkout em `CHECKOUT_URL` e aponte a página de retorno para `https://seu-dominio/api/checkout/return?session_id={CHECKOUT_SESSION_ID}`. É esse `session_id` que permite logar o comprador na hora; sem ele a página de obrigado cai no fluxo de e-mail. Confirme também se o KashPay repassa os parâmetros da query para os metadados da sessão do Stripe; se não repassar, o idioma cai para o país da cobrança.
 6. *(Opcional)* Hotmart → Ferramentas → Webhook (versão 2.0): URL `https://seu-dominio/api/webhooks/hotmart`, eventos de compra (aprovada, completa, reembolsada, chargeback, cancelada, protesto, expirada). Copie o **hottok** para `HOTMART_HOTTOK` e defina `NEXT_PUBLIC_CHECKOUT_LOCALE_PARAM=xcod`.
 7. Resend: verifique o domínio do `EMAIL_FROM` (SPF/DKIM) para não cair em spam.
 8. O cron está em `vercel.json`. Contas **Hobby** só permitem um disparo por dia, então ele roda às 10:00 UTC e a janela de envio local é ampla (`REMINDER_LOCAL_HOURS=5-21`), para alcançar vários fusos sem acordar ninguém. No plano **Pro**, troque a expressão para `0 * * * *` e defina `REMINDER_LOCAL_HOURS=7-8` para entregar na hora do café da manhã em cada fuso.

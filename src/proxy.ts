@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { LOCALE_COOKIE, isLocale, localePath, negotiateLocale, type Locale } from "@/i18n/config";
-import { SESSION_COOKIE, verifySession } from "@/lib/auth/session";
+import { SESSION_COOKIE, sessionCookieOptions, shouldRenew, signSession, verifySession } from "@/lib/auth/session";
 
 export const config = {
   // Everything except Next internals, static files and API route handlers.
@@ -38,7 +38,8 @@ export async function proxy(request: NextRequest) {
   const isProtected = PROTECTED.some((p) => rest === p || rest.startsWith(`${p}/`));
   let response: NextResponse;
   if (isProtected) {
-    const session = await verifySession(request.cookies.get(SESSION_COOKIE)?.value, process.env.SESSION_SECRET ?? "");
+    const secret = process.env.SESSION_SECRET ?? "";
+    const session = await verifySession(request.cookies.get(SESSION_COOKIE)?.value, secret);
     if (!session) {
       const url = request.nextUrl.clone();
       url.pathname = localePath(locale, "/login");
@@ -46,6 +47,16 @@ export async function proxy(request: NextRequest) {
       response = NextResponse.redirect(url);
     } else {
       response = NextResponse.next();
+      // Sliding expiry: someone who keeps using the app is never logged out,
+      // which matters most for buyers who have no e-mail link to fall back on.
+      if (shouldRenew(session)) {
+        try {
+          const renewed = await signSession({ sub: session.sub, email: session.email }, secret);
+          response.cookies.set(SESSION_COOKIE, renewed, sessionCookieOptions);
+        } catch {
+          // Keep serving the request on the existing, still-valid token.
+        }
+      }
     }
   } else {
     response = NextResponse.next();

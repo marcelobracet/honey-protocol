@@ -355,6 +355,13 @@ const pt: Dictionary = {
     },
   },
   thanks: {
+    readyEyebrow: "Tudo certo",
+    readyTitle: "Seu acesso já está liberado 🍯",
+    readyBody: "Você já está dentro. Toque no botão para ver a receita e preparar o seu primeiro Truque do Mel amanhã de manhã.",
+    readyCta: "Entrar no meu ritual",
+    readyKeepAccess: "Dica: adicione o app à tela inicial do seu celular. Assim você volta com um toque, sem precisar de link nenhum.",
+    pendingTitle: "Estamos confirmando seu pagamento",
+    pendingBody: "Alguns meios de pagamento levam alguns minutos para compensar. Assim que o pagamento for aprovado, seu acesso é liberado automaticamente. Você pode fechar esta página.",
     eyebrow: "Compra confirmada",
     title: "Bem-vindo ao seu ritual 🍯",
     subtitle: "Seu acesso está sendo liberado agora. Faltam só 3 passos:",

@@ -86,7 +86,15 @@ async function handleEvent(event: Stripe.Event) {
       source: "stripe",
     });
 
-    await sendMagicLink({ email, locale: result.locale, kind: "welcome" });
+    // Access is already granted above, and the buyer normally lands straight
+    // in the app through /api/checkout/return. The welcome e-mail is a
+    // convenience for getting back in later, so a missing or broken e-mail
+    // provider must not fail the event and trigger Stripe retries.
+    try {
+      await sendMagicLink({ email, locale: result.locale, kind: "welcome" });
+    } catch (err) {
+      console.error("[stripe webhook] welcome e-mail failed for", email, err);
+    }
 
     await sendPurchaseEvent({
       email,

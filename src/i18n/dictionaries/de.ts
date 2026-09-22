@@ -355,6 +355,13 @@ const de: Dictionary = {
     },
   },
   thanks: {
+    readyEyebrow: "Alles bereit",
+    readyTitle: "Dein Zugang ist schon freigeschaltet 🍯",
+    readyBody: "Du bist schon drin. Tippe auf den Button, um das Rezept zu sehen und morgen früh deinen ersten Honig-Trick zuzubereiten.",
+    readyCta: "In mein Ritual einloggen",
+    readyKeepAccess: "Tipp: Füge die App zum Startbildschirm deines Handys hinzu. So kommst du mit einem Tippen zurück, ganz ohne Link.",
+    pendingTitle: "Wir bestätigen gerade deine Zahlung",
+    pendingBody: "Manche Zahlungsarten brauchen ein paar Minuten, bis sie verbucht sind. Sobald die Zahlung bestätigt ist, wird dein Zugang automatisch freigeschaltet. Du kannst diese Seite schließen.",
     eyebrow: "Kauf bestätigt",
     title: "Willkommen zu deinem Ritual 🍯",
     subtitle: "Dein Zugang wird gerade freigeschaltet. Es fehlen nur noch 3 Schritte:",

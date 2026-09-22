@@ -355,6 +355,13 @@ const en: Dictionary = {
     },
   },
   thanks: {
+    readyEyebrow: "All set",
+    readyTitle: "Your access is ready 🍯",
+    readyBody: "You're already in. Tap the button to see the recipe and make your first Honey Trick tomorrow morning.",
+    readyCta: "Log in to my ritual",
+    readyKeepAccess: "Tip: add the app to your phone's home screen. That way you come back with one tap, no link needed.",
+    pendingTitle: "We're confirming your payment",
+    pendingBody: "Some payment methods take a few minutes to clear. As soon as the payment is approved, your access is unlocked automatically. You can close this page.",
     eyebrow: "Purchase confirmed",
     title: "Welcome to your ritual 🍯",
     subtitle: "Your access is being unlocked right now. Just 3 steps to go:",
